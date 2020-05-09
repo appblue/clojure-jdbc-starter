@@ -27,9 +27,12 @@
 ;; ---------------------------
 ;; (jdbc/execute! conn ["listen foo"])
 ;; (jdbc/execute! conn ["notify foo 'tst'"])
+;; 
+;; find your our PID, to distingish between own NOTIFICATIONS and the ones from others
+;; (def my-pid (.getBackendPID conn))
 ;;
 ;; (def notifications (.getNotifications conn))
-;; (map #(vector (.getName %) (.getParameter %)) notifications)
+;; (map #(vector (.getName %) (.getParameter %) (.getPID %) notifications)
 ;;  => (["foo" "tst"])
 ;; (.getName (first notifications))
 ;;  => "foo"
