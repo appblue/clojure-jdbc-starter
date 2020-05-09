@@ -4,7 +4,14 @@
 ;;; THIS WILL WORK WITH H2
 ;;; (def db-h2 {:dbtype "h2" :dbname "example"})
 
-(def db-pgsql {:dbtype "postgresql" :user "kkielak" :password "" :host "127.0.0.1" :dbname "postgres"})
+(def db-pgsql 
+  {
+   :dbtype "postgresql" 
+   :user "kkielak" 
+   :password "" 
+   :host "127.0.0.1" 
+   :dbname "postgres"})
+
 (def ds (jdbc/get-datasource db-pgsql))
 
 ;;;
@@ -24,10 +31,11 @@
 (jdbc/execute! ds ["
 -- postgresql version
 drop table if exists address;
+
 create table address (
-  id int,
-  name varchar(32),
-  email varchar(255)
+  id      int,
+  name    varchar(32),
+  email   varchar(255)
 )"])
 
 (jdbc/execute! ds ["
