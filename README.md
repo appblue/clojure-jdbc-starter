@@ -1,10 +1,10 @@
-# clj-jdbc
+# clojure-jdbc-starter
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure starter/example code for connecting to PostgreSQL using next.jdbc driver
 
 ## Usage
 
-FIXME
+It is a note to myself, so can be reused in future project. The main goal was to "document" simple use case for connecting to db and setting up the dependecies.
 
 ## License
 
