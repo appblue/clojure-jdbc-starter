@@ -1,12 +1,14 @@
 (ns clj-jdbc.core)
 (require '[next.jdbc :as jdbc])
 
+;;; THIS WILL WORK WITH H2
 ;;; (def db-h2 {:dbtype "h2" :dbname "example"})
+
 (def db-pgsql {:dbtype "postgresql" :user "kkielak" :password "" :host "127.0.0.1" :dbname "postgres"})
 (def ds (jdbc/get-datasource db-pgsql))
 
 ;;;
-;;; THIS VERSION WILL WORK WITH H2
+;;; THIS WILL WORK WITH H2
 ;;;
 ;; (jdbc/execute! ds ["
 ;; drop table if exists address;
@@ -32,4 +34,7 @@ create table address (
 insert into address(name,email)
   values('Sean Corfield','sean@corfield.org')"])
 
-(def result-set (jdbc/execute! ds ["select a1.name, a2.name from address a1,address a2"]))
+(def result-set 
+  (jdbc/execute! 
+   ds 
+   ["select a1.name, a2.name from address a1,address a2"]))
