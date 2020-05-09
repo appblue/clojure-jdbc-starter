@@ -31,11 +31,10 @@
 (jdbc/execute! ds ["
 -- postgresql version
 drop table if exists address;
-
 create table address (
-  id      int,
-  name    varchar(32),
-  email   varchar(255)
+  id int,
+  name varchar(32),
+  email varchar(255)
 )"])
 
 (jdbc/execute! ds ["
