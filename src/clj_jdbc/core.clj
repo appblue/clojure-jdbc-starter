@@ -13,6 +13,26 @@
    :dbname "postgres"})
 
 (def ds (jdbc/get-datasource db-pgsql))
+(def conn (jdbc/get-connection ds))
+
+;; EXAMPLE USAGE
+;; -------------
+;; (let [my-datasource (jdbc/get-datasource {:dbtype "..." :dbname "..." ...})]
+;;     (with-open [connection (jdbc/get-connection my-datasource)]
+;;       (jdbc/execute! connection [...])
+;;       (reduce my-fn init-value (jdbc/plan connection [...]))
+;;       (jdbc/execute! connection [...])))
+;; 
+;; NOTIFICATIONS IN POSTGRESQL:
+;; ---------------------------
+;; (jdbc/execute! conn ["listen foo"])
+;; (jdbc/execute! conn ["notify foo 'tst'"])
+;;
+;; (def notifications (.getNotifications conn))
+;; (map #(vector (.getName %) (.getParameter %)) notifications)
+;;  => (["foo" "tst"])
+;; (.getName (first notifications))
+;;  => "foo"
 
 ;;;
 ;;; THIS WILL WORK WITH H2
@@ -28,7 +48,7 @@
 ;;;
 ;;; THIS IS POSTGRESQL VERSION OF THE QUERY
 ;;;
-(jdbc/execute! ds ["
+(jdbc/execute! conn ["
 -- postgresql version
 drop table if exists address;
 create table address (
@@ -37,11 +57,11 @@ create table address (
   email varchar(255)
 )"])
 
-(jdbc/execute! ds ["
+(jdbc/execute! conn ["
 insert into address(name,email)
   values('Sean Corfield','sean@corfield.org')"])
 
 (def result-set 
   (jdbc/execute! 
-   ds 
+   conn 
    ["select a1.name, a2.name from address a1,address a2"]))
