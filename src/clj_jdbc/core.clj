@@ -37,6 +37,11 @@
 ;; (.getName (first notifications))
 ;;  => "foo"
 
+
+;;
+;; GET CopyManager
+;; (def copy-api (.getCopyAPI conn))
+
 ;;;
 ;;; THIS WILL WORK WITH H2
 ;;;
