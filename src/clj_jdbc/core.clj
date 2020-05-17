@@ -39,7 +39,7 @@
 
 
 ;;
-;; GET CopyManager
+;; Get CopyManager
 ;; (def copy-api (.getCopyAPI conn))
 
 ;;;
@@ -57,13 +57,17 @@
 ;;; THIS IS POSTGRESQL VERSION OF THE QUERY
 ;;;
 (jdbc/execute! conn ["
+
 -- postgresql version
 drop table if exists address;
+
 create table address (
   id int,
   name varchar(32),
   email varchar(255)
-)"])
+)
+
+"])
 
 (jdbc/execute! conn ["
 insert into address(name,email)
@@ -72,4 +76,4 @@ insert into address(name,email)
 (def result-set 
   (jdbc/execute! 
    conn 
-   ["select a1.name, a2.name from address a1,address a2"]))
+   ["select * from address"]))
